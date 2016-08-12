@@ -1,0 +1,17 @@
+<html>
+<body>
+<script>
+
+document.addEventListener('DOMContentLoaded', function(e){
+	navigator.serviceWorker.register('service-worker.js').then(function(registration) {
+		registration.pushManager.subscribe().then(function(subscription) {
+			console.log('GCM engpoint is: ', subscription.endpoint);
+		});
+	}).catch(console.log);
+});
+</scipt>
+
+<h1>ServiceWorkerTest</h1>
+</body>
+</html>
+

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Say hello using the People API</title>
+    <meta charset='utf-8' />
+  </head>
+  <body>
+    <p>Say hello using the People API.</p>
+
+    <!--Add buttons to initiate auth sequence and sign out-->
+    <button id="authorize-button" style="display: none;">Authorize</button>
+    <button id="signout-button" style="display: none;">Sign Out</button>
+
+    <div id="content"></div>
+
+    <script type="text/javascript">
+      var apiKey = 'kPebWtoQmz9wO0qQCKCn8B';
+      var clientId = '270109659898-qh6ovi2cj1b0g4lggttsjg17d1ub8kdg.apps.googleusercontent.com';
+      var scopes = 'profile';
+      var auth2; // The Sign-In object.
+      var authorizeButton = document.getElementById('authorize-button');
+      var signoutButton = document.getElementById('signout-button');
+      function handleClientLoad() {
+        // Load the API client and auth library
+        gapi.load('client:auth2', initAuth);
+      }
+      function initAuth() {
+        gapi.client.setApiKey(apiKey);
+        gapi.auth2.init({
+            client_id: clientId,
+            scope: scopes
+        }).then(function () {
+          auth2 = gapi.auth2.getAuthInstance();
+          // Listen for sign-in state changes.
+          auth2.isSignedIn.listen(updateSigninStatus);
+          // Handle the initial sign-in state.
+          updateSigninStatus(auth2.isSignedIn.get());
+          authorizeButton.onclick = handleAuthClick;
+          signoutButton.onclick = handleSignoutClick;
+        });
+      }
+      function updateSigninStatus(isSignedIn) {
+        if (isSignedIn) {
+          authorizeButton.style.display = 'none';
+          signoutButton.style.display = 'block';
+          makeApiCall();
+        } else {
+          authorizeButton.style.display = 'block';
+          signoutButton.style.display = 'none';
+        }
+      }
+      function handleAuthClick(event) {
+        auth2.signIn();
+      }
+      function handleSignoutClick(event) {
+        auth2.signOut();
+      }
+      // Load the API and make an API call.  Display the results on the screen.
+      function makeApiCall() {
+        gapi.client.load('people', 'v1', function() {
+          var request = gapi.client.people.people.get({
+            resourceName: 'people/me'
+          });
+          request.execute(function(resp) {
+            var p = document.createElement('p');
+            var name = resp.names[0].givenName;
+            p.appendChild(document.createTextNode('Hello, '+name+'!'));
+            document.getElementById('content').appendChild(p);
+          });
+        });
+        // Note: In this example, we use the People API to get the current
+        // user's name. In a real app, you would likely get basic profile info
+        // from the GoogleUser object to avoid the extra network round trip.
+        console.log(auth2.currentUser.get().getBasicProfile().getGivenName());
+      }
+    </script>
+    <script src="https://apis.google.com/js/api.js?onload=handleClientLoad"></script>
+  </body>
+</html>

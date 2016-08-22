@@ -75,6 +75,12 @@
 	  };
 	
 	  SymProfLoader.init = function(options) {
+	    if (true) {
+	      console.log("INITIALIZING!!");
+	    }
+	    if (true) {
+	      console.log(options);
+	    }
 	    return new this(options.attributes, options.providers);
 	  };
 	
@@ -139,7 +145,7 @@
 	  };
 	
 	  SymProfLoader.prototype.initProviders = function() {
-	    var attrName, attributeNames, i, len, providerConfig, ref, results, selector;
+	    var attrName, attributeNames, providerConfig, selector;
 	    attributeNames = (function() {
 	      var ref, results;
 	      ref = this.attributes;
@@ -150,15 +156,18 @@
 	      }
 	      return results;
 	    }).call(this);
-	    ref = this.providers;
-	    results = [];
-	    for (i = 0, len = ref.length; i < len; i++) {
-	      providerConfig = ref[i];
-	      results.push(initProvider(extend({
-	        attributeNames: attributeNames
-	      }, providerConfig)));
-	    }
-	    return results;
+	    return this.providers = (function() {
+	      var i, len, ref, results;
+	      ref = this.providers;
+	      results = [];
+	      for (i = 0, len = ref.length; i < len; i++) {
+	        providerConfig = ref[i];
+	        results.push(initProvider(extend({
+	          attributeNames: attributeNames
+	        }, providerConfig)));
+	      }
+	      return results;
+	    }).call(this);
 	  };
 	
 	  SymProfLoader.prototype.initProvider = function(providerName, config) {
@@ -171,6 +180,9 @@
 	          return console.log("Unsupported Provider '" + providerName + "'");
 	      }
 	    })();
+	    if (true) {
+	      console.log("init provider");
+	    }
 	    return providerClass.load(config);
 	  };
 	

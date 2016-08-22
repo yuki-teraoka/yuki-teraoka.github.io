@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Say hello using the People API</title>
+    <meta charset='utf-8' />
+  </head>
+  <body>
+
+    <button id="googleAuth">Google</button>
+
+		<input type="email" value="" placeholder="test@example.com" />
+
+    <script type="text/javascript">
+			SymProfLoader.init({
+			  attributes: {
+			    email: '#email'
+			  },
+			  providers: {
+			    google: {
+			      apiKey: "kPebWtoQmz9wO0qQCKCn8B",
+			      clientId: "270109659898-qh6ovi2cj1b0g4lggttsjg17d1ub8kdg.apps.googleusercontent.com",
+						button: '#googleAuth'
+			    }
+			  }
+			});
+    </script>
+    <script src="./sym-profile-loader.js"></script>
+  </body>
+</html>

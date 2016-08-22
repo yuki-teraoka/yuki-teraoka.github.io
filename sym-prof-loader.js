@@ -51,10 +51,9 @@
 /* 1 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var SymProfLoader,
-	  bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
+	var bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
 	
-	SymProfLoader = (function() {
+	this.SymProfLoader = (function() {
 	  var extend, include;
 	
 	  function SymProfLoader() {

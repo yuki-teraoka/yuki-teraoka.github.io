@@ -107,6 +107,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    results = [];
 	    for (selector in ref) {
 	      attrName = ref[selector];
+	      console.log(selector);
 	      results.push((function() {
 	        var i, len, ref1, results1;
 	        ref1 = document.querySelectorAll(selector);

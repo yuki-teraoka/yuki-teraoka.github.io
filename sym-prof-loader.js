@@ -96,7 +96,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    this.attributes = attributes;
 	    this.providers = providers;
 	    this.onProfileLoaded = bind(this.onProfileLoaded, this);
-	    document.addEventListener(this.onProfileLoaded);
+	    document.addEventListener('profileLoaded', this.onProfileLoaded);
 	    this.initProviders();
 	  }
 

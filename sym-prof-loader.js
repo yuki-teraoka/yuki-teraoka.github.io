@@ -4,9 +4,9 @@
 	else if(typeof define === 'function' && define.amd)
 		define([], factory);
 	else if(typeof exports === 'object')
-		exports["sym-prof-loader"] = factory();
+		exports["SymProfileLoader"] = factory();
 	else
-		root[""] = root[""] || {}, root[""]["sym-prof-loader"] = factory();
+		root["SymProfileLoader"] = factory();
 })(this, function() {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
@@ -71,6 +71,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	    this.onProfileLoaded = bind(this.onProfileLoaded, this);
 	  }
 
+	  window.__DEBUG__ = true;
+
 	  extend = function(obj, mixin) {
 	    var method, name;
 	    for (name in mixin) {
@@ -85,9 +87,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	  };
 
 	  SymProfLoader.init = function(options) {
-	    console.log("INITIALIZING!!");
-	    console.log(options);
-	    return new this(options.attributes, options.providers);
+	    if (__DEBUG__) {
+	      console.log("INITIALIZING!!");
+	    }
+	    if (__DEBUG__) {
+	      console.log(options);
+	    }
+	    return new SymProfLoader(options.attributes, options.providers);
 	  };
 
 	  SymProfLoader.prototype.construct = function(attributes, providers) {
@@ -107,7 +113,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	    results = [];
 	    for (selector in ref) {
 	      attrName = ref[selector];
-	      console.log(selector);
 	      results.push((function() {
 	        var i, len, ref1, results1;
 	        ref1 = document.querySelectorAll(selector);

@@ -1,41 +1,51 @@
-/******/ (function(modules) { // webpackBootstrap
+(function webpackUniversalModuleDefinition(root, factory) {
+	if(typeof exports === 'object' && typeof module === 'object')
+		module.exports = factory();
+	else if(typeof define === 'function' && define.amd)
+		define([], factory);
+	else if(typeof exports === 'object')
+		exports["sym-prof-loader"] = factory();
+	else
+		root[""] = root[""] || {}, root[""]["sym-prof-loader"] = factory();
+})(this, function() {
+return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
-/******/
+
 /******/ 	// The require function
 /******/ 	function __webpack_require__(moduleId) {
-/******/
+
 /******/ 		// Check if module is in cache
 /******/ 		if(installedModules[moduleId])
 /******/ 			return installedModules[moduleId].exports;
-/******/
+
 /******/ 		// Create a new module (and put it into the cache)
 /******/ 		var module = installedModules[moduleId] = {
 /******/ 			exports: {},
 /******/ 			id: moduleId,
 /******/ 			loaded: false
 /******/ 		};
-/******/
+
 /******/ 		// Execute the module function
 /******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
-/******/
+
 /******/ 		// Flag the module as loaded
 /******/ 		module.loaded = true;
-/******/
+
 /******/ 		// Return the exports of the module
 /******/ 		return module.exports;
 /******/ 	}
-/******/
-/******/
+
+
 /******/ 	// expose the modules object (__webpack_modules__)
 /******/ 	__webpack_require__.m = modules;
-/******/
+
 /******/ 	// expose the module cache
 /******/ 	__webpack_require__.c = installedModules;
-/******/
+
 /******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "dist/";
-/******/
+/******/ 	__webpack_require__.p = "";
+
 /******/ 	// Load entry module and return exports
 /******/ 	return __webpack_require__(0);
 /******/ })
@@ -53,14 +63,14 @@
 
 	var SymProfLoader,
 	  bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
-	
+
 	SymProfLoader = (function() {
 	  var extend, include;
-	
+
 	  function SymProfLoader() {
 	    this.onProfileLoaded = bind(this.onProfileLoaded, this);
 	  }
-	
+
 	  extend = function(obj, mixin) {
 	    var method, name;
 	    for (name in mixin) {
@@ -69,32 +79,28 @@
 	    }
 	    return obj;
 	  };
-	
+
 	  include = function(klass, mixin) {
 	    return extend(klass.prototype, mixin);
 	  };
-	
+
 	  SymProfLoader.init = function(options) {
-	    if (true) {
-	      console.log("INITIALIZING!!");
-	    }
-	    if (true) {
-	      console.log(options);
-	    }
+	    log("INITIALIZING!!");
+	    log(options);
 	    return new this(options.attributes, options.providers);
 	  };
-	
+
 	  SymProfLoader.prototype.construct = function(attributes, providers) {
 	    this.attributes = attributes;
 	    this.providers = providers;
 	    document.addEventListener(this.onProfileLoaded);
 	    return this.initProviders();
 	  };
-	
+
 	  SymProfLoader.prototype.onProfileLoaded = function(event) {
 	    return this.assignAttributes(event.profile);
 	  };
-	
+
 	  SymProfLoader.prototype.assignAttributes = function(profile) {
 	    var attrName, elem, ref, results, selector;
 	    ref = this.attributes;
@@ -114,7 +120,7 @@
 	    }
 	    return results;
 	  };
-	
+
 	  SymProfLoader.prototype.assignElementValue = function(elem, value) {
 	    var i, len, option, ref, results, textNode;
 	    switch (elem.tagName.toLowerCase()) {
@@ -143,7 +149,7 @@
 	        return elem.addChild(textNode);
 	    }
 	  };
-	
+
 	  SymProfLoader.prototype.initProviders = function() {
 	    var attrName, attributeNames, providerConfig, selector;
 	    attributeNames = (function() {
@@ -169,7 +175,7 @@
 	      return results;
 	    }).call(this);
 	  };
-	
+
 	  SymProfLoader.prototype.initProvider = function(providerName, config) {
 	    var providerClass;
 	    providerClass = (function() {
@@ -180,16 +186,16 @@
 	          return console.log("Unsupported Provider '" + providerName + "'");
 	      }
 	    })();
-	    if (true) {
+	    if (__DEBUG__) {
 	      console.log("init provider");
 	    }
 	    return providerClass.load(config);
 	  };
-	
+
 	  return SymProfLoader;
-	
+
 	})();
-	
+
 	window.SymProfLoader = SymProfLoader;
 
 
@@ -201,18 +207,18 @@
 	  bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
 	  extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
 	  hasProp = {}.hasOwnProperty;
-	
+
 	GoogleProfileProvider = (function(superClass) {
 	  var BasicProfile, LIBRARY_URL;
-	
+
 	  extend(GoogleProfileProvider, superClass);
-	
+
 	  LIBRARY_URL = 'https://apis.google.com/js/api.js';
-	
+
 	  GoogleProfileProvider.load = function(config) {
 	    return new GoogleProfileLoader(config).initialize();
 	  };
-	
+
 	  function GoogleProfileProvider(config1) {
 	    this.config = config1;
 	    this.initAuth = bind(this.initAuth, this);
@@ -221,28 +227,28 @@
 	    this.requestProfile = bind(this.requestProfile, this);
 	    supr(this.config);
 	  }
-	
+
 	  GoogleProfileProvider.prototype.initialize = function() {
 	    loadGapi();
 	    return this;
 	  };
-	
+
 	  GoogleProfileProvider.prototype.requestProfile = function(event) {
 	    this.gapi.auth2.signOut();
 	    return this.gapi.auth2.signIn();
 	  };
-	
+
 	  GoogleProfileProvider.prototype.updateSigninStatus = function(isSignedIn) {
 	    if (isSignedIn) {
 	      this.profileLoaded(this.createProfile());
 	    }
 	    return end;
 	  };
-	
+
 	  GoogleProfileProvider.prototype.createProfile = function() {
 	    return new BasicProfile(auth2.currentUser.get().getBasicProfile());
 	  };
-	
+
 	  GoogleProfileProvider.prototype.loadGapi = function() {
 	    if (window.gapi) {
 	      return this.onClientLoad();
@@ -251,13 +257,13 @@
 	      return this.loadScript(LIBRARY_URL + "?onload=googleClientLoadHandler");
 	    }
 	  };
-	
+
 	  GoogleProfileProvider.prototype.onClientLoad = function() {
 	    this.gapi = window.gapi;
 	    this.gapi.client.setApiKey(this.config.apiKey);
 	    return this.gapi.load('client:auth2', this.initAuth);
 	  };
-	
+
 	  GoogleProfileProvider.prototype.initAuth = function() {
 	    this.initButton(this.config.button);
 	    this.gapi.auth2.isSignedIn.listen(this.updateSigninStatus);
@@ -270,34 +276,34 @@
 	      return this.updateSigninStatus(auth2.isSignedIn.get());
 	    }).then(this.profileLoaded);
 	  };
-	
+
 	  BasicProfile = (function(superClass1) {
 	    extend(BasicProfile, superClass1);
-	
+
 	    function BasicProfile(basicProfile) {
 	      this.basicProfile = basicProfile;
 	    }
-	
+
 	    BasicProfile.prototype.givenName = function() {
 	      return this.basicProfile.getGivenName();
 	    };
-	
+
 	    BasicProfile.prototype.firstName = function() {
 	      return this.basicProfile.getFirstName();
 	    };
-	
+
 	    BasicProfile.prototype.email = function() {
 	      return this.basicProfile.getEmail();
 	    };
-	
+
 	    return BasicProfile;
-	
+
 	  })(__webpack_require__(3));
-	
+
 	  return GoogleProfileProvider;
-	
+
 	})(__webpack_require__(4));
-	
+
 	module.exports = GoogleProfileLoader;
 
 
@@ -306,31 +312,31 @@
 /***/ function(module, exports) {
 
 	var Profile;
-	
+
 	Profile = (function() {
 	  var ATTRIBUTE_NAMES, attrName, i, len;
-	
+
 	  ATTRIBUTE_NAMES = ['givenName', 'firstName', 'email'];
-	
+
 	  function Profile(attributs) {
 	    this.attributs = attributs != null ? attributs : {};
 	  }
-	
+
 	  Profile.prototype.fullName = function() {
 	    return givenName + " " + firstName;
 	  };
-	
+
 	  for (i = 0, len = ATTRIBUTE_NAMES.length; i < len; i++) {
 	    attrName = ATTRIBUTE_NAMES[i];
 	    Profile.prototype.attrName = (function() {
 	      return this.attributes[attrName];
 	    });
 	  }
-	
+
 	  return Profile;
-	
+
 	})();
-	
+
 	module.exports = Profile;
 
 
@@ -339,12 +345,12 @@
 /***/ function(module, exports) {
 
 	var ProfileProvider;
-	
+
 	ProfileProvider = (function() {
 	  function ProfileProvider(config) {
 	    this.config = config;
 	  }
-	
+
 	  ProfileProvider.prototype.initButton = function(option) {
 	    var elem, i, len, ref, results;
 	    ref = document.querySelectorAll(option);
@@ -360,7 +366,7 @@
 	    }
 	    return results;
 	  };
-	
+
 	  ProfileProvider.prototype.profileLoaded = function(profile) {
 	    var event;
 	    this.profile = profile;
@@ -370,11 +376,11 @@
 	    event.profileProvider = this;
 	    return document.dispatchEvent(event);
 	  };
-	
+
 	  ProfileProvider.prototype.scopes = function() {
 	    return ['profile', 'email'];
 	  };
-	
+
 	  ProfileProvider.prototype.loadScript = function(url) {
 	    var fs, script;
 	    fs = document.getElementsByTagName('script')[0];
@@ -382,14 +388,15 @@
 	    script.setAttribute('src', url);
 	    return fs.parentNode.insertBefore(s, fs);
 	  };
-	
+
 	  return ProfileProvider;
-	
+
 	})();
-	
+
 	module.exports = ProfileProvider;
 
 
 /***/ }
-/******/ ]);
-//# sourceMappingURL=sym-prof-loader.js.map
+/******/ ])
+});
+;

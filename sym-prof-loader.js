@@ -85,8 +85,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	  };
 
 	  SymProfLoader.init = function(options) {
-	    log("INITIALIZING!!");
-	    log(options);
+	    console.log("INITIALIZING!!");
+	    console.log(options);
 	    return new this(options.attributes, options.providers);
 	  };
 

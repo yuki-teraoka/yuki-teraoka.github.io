@@ -67,10 +67,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	SymProfLoader = (function() {
 	  var extend, include;
 
-	  function SymProfLoader() {
-	    this.onProfileLoaded = bind(this.onProfileLoaded, this);
-	  }
-
 	  window.__DEBUG__ = true;
 
 	  extend = function(obj, mixin) {
@@ -96,12 +92,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	    return new SymProfLoader(options.attributes, options.providers);
 	  };
 
-	  SymProfLoader.prototype.construct = function(attributes, providers) {
+	  function SymProfLoader(attributes, providers) {
 	    this.attributes = attributes;
 	    this.providers = providers;
+	    this.onProfileLoaded = bind(this.onProfileLoaded, this);
 	    document.addEventListener(this.onProfileLoaded);
-	    return this.initProviders();
-	  };
+	    this.initProviders();
+	  }
 
 	  SymProfLoader.prototype.onProfileLoaded = function(event) {
 	    return this.assignAttributes(event.profile);

@@ -97,6 +97,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	    this.providers = providers;
 	    this.onProfileLoaded = bind(this.onProfileLoaded, this);
 	    document.addEventListener('profileLoaded', this.onProfileLoaded);
+	    if (__DEBUG__) {
+	      console.log(this.providers);
+	    }
 	    this.initProviders();
 	  }
 

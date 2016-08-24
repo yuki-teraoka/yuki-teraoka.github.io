@@ -222,7 +222,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  LIBRARY_URL = 'https://apis.google.com/js/api.js';
 
 	  GoogleProfileProvider.load = function(config) {
-	    return new GoogleProfileLoader(config).initialize();
+	    return new GoogleProfileProvider(config).initialize();
 	  };
 
 	  function GoogleProfileProvider(config1) {

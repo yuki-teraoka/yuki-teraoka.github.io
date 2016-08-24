@@ -2,16 +2,16 @@
 <html>
   <head><meta charset='utf-8' />
   <script type="text/javascript">
-    var hash = location.hash.match(/^#(.+)$/)[0];
+    var hash = location.hash.match(/^#(.+)$/)[1];
     if (!hash) {
 			window.close();
 			return;
 		}
-		var parentWindow = parent.postMessage ? parent : (parent.document.postMessage ? parent.document : undefined);
-    if (!parentWindow) {
+		var targetWindow = window.opener;
+    if (!targetWindow) {
 			return;
 		}
-    var origin = parent.location.match(/^https?:\/\/[^/?#]+)/)[0];
+    var origin = targetWindow.location.href.match(/^https?:\/\/[^/?#]+)/)[0];
     if (!origin) {
 			return;
 		}
@@ -21,7 +21,7 @@
       var pair = pairs.split('=', 2);
 			data[pair[0]] = decodeUriComponent(pair[1]);
 		}
-    parentWindow.postMessage(data, origin);
+    targetWindow.postMessage(data, origin);
     window.close();
   </script>
   </head>

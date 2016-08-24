@@ -391,7 +391,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    fs = document.getElementsByTagName('script')[0];
 	    script = document.createElement('script');
 	    script.setAttribute('src', url);
-	    return fs.parentNode.insertBefore(s, fs);
+	    return fs.parentNode.insertBefore(script, fs);
 	  };
 
 	  return ProfileProvider;

@@ -154,7 +154,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  };
 
 	  SymProfLoader.prototype.initProviders = function() {
-	    var attrName, attributeNames, providerConfig, selector;
+	    var attrName, attributeNames, providerConfig, providerName, selector;
 	    attributeNames = (function() {
 	      var ref, results;
 	      ref = this.attributes;
@@ -169,9 +169,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	      var i, len, ref, results;
 	      ref = this.providers;
 	      results = [];
-	      for (i = 0, len = ref.length; i < len; i++) {
-	        providerConfig = ref[i];
-	        results.push(initProvider(extend({
+	      for (providerConfig = i = 0, len = ref.length; i < len; providerConfig = ++i) {
+	        providerName = ref[providerConfig];
+	        results.push(initProvider(providerName, extend({
 	          attributeNames: attributeNames
 	        }, providerConfig)));
 	      }

@@ -258,7 +258,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	  };
 
 	  GoogleProfileProvider.prototype.createProfile = function() {
-	    return new BasicProfile(auth2.currentUser.get().getBasicProfile());
+	    var authInstance;
+	    authInstance = this.gapi.auth2.getAuthInstance();
+	    return new BasicProfile(authInstance.currentUser.get().getBasicProfile());
 	  };
 
 	  GoogleProfileProvider.prototype.loadGapi = function() {

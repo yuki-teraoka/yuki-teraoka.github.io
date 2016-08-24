@@ -245,9 +245,8 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	  GoogleProfileProvider.prototype.updateSigninStatus = function(isSignedIn) {
 	    if (isSignedIn) {
-	      this.profileLoaded(this.createProfile());
+	      return this.profileLoaded(this.createProfile());
 	    }
-	    return end;
 	  };
 
 	  GoogleProfileProvider.prototype.createProfile = function() {

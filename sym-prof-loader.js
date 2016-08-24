@@ -223,11 +223,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	  hasProp = {}.hasOwnProperty;
 
 	YConnectProfileProvider = (function(superClass) {
-	  var LIBRARY_URL, YConnectProfile;
+	  var LIBRARY_URL, REDIRECT_URI, YConnectProfile;
 
 	  extend(YConnectProfileProvider, superClass);
 
 	  LIBRARY_URL = 'https://s.yimg.jp/images/login/yconnect/auth/1.0.3/auth-min.js';
+
+	  REDIRECT_URI = 'https://yuki-teraoka.github.io/cb.html';
 
 	  YConnectProfileProvider.load = function(config) {
 	    return new YConnectProfileProvider(config).initialize();
@@ -282,7 +284,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      authorization: {
 	        responseType: 'id_token token',
 	        clientId: this.config.clientId,
-	        redirectUri: 'https://yuki-teraoka.github.io',
+	        redirectUri: REDIRECT_URI,
 	        scope: this.scopes().join(' '),
 	        state: Math.random().toString(36).slice(-8),
 	        nonce: Math.random().toString(36).slice(-8)

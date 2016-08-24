@@ -270,7 +270,6 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	  GoogleProfileProvider.prototype.initAuth = function() {
 	    this.initButton(this.config.button);
-	    this.gapi.auth2.isSignedIn.listen(this.updateSigninStatus);
 	    this.gapi.client.setApiKey(this.config.apiKey);
 	    return this.gapi.client.init({
 	      client_id: this.config.clientId,
@@ -278,6 +277,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }).then(function() {
 	      var auth2;
 	      auth2 = this.gapi.auth2.getAuthInstance();
+	      auth2.isSignedIn.listen(this.updateSigninStatus);
 	      return this.updateSigninStatus(auth2.isSignedIn.get());
 	    }).then(this.profileLoaded);
 	  };

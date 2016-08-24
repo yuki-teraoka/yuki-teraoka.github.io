@@ -274,12 +274,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	    return this.gapi.auth2.init({
 	      client_id: this.config.clientId,
 	      scope: this.scopes().join(' ')
-	    }).then(function() {
-	      var auth2;
-	      auth2 = this.gapi.auth2.getAuthInstance();
-	      auth2.isSignedIn.listen(this.updateSigninStatus);
-	      return this.updateSigninStatus(auth2.isSignedIn.get());
-	    }).then(this.profileLoaded);
+	    }).then((function(_this) {
+	      return function() {
+	        var auth2;
+	        auth2 = _this.gapi.auth2.getAuthInstance();
+	        auth2.isSignedIn.listen(_this.updateSigninStatus);
+	        return _this.updateSigninStatus(auth2.isSignedIn.get());
+	      };
+	    })(this)).then(this.profileLoaded);
 	  };
 
 	  BasicProfile = (function(superClass1) {

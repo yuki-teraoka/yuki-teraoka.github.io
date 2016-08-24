@@ -245,8 +245,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	  };
 
 	  GoogleProfileProvider.prototype.onButtonClick = function() {
-	    this.gapi.auth2.signOut();
-	    return this.gapi.auth2.signIn();
+	    var authInstance;
+	    authInstance = this.gapi.auth2.getAuthInstance();
+	    authInstance.signOut();
+	    return authInstance.signIn();
 	  };
 
 	  GoogleProfileProvider.prototype.updateSigninStatus = function(isSignedIn) {
@@ -281,10 +283,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	      scope: this.scopes().join(' ')
 	    }).then((function(_this) {
 	      return function() {
-	        var auth2;
-	        auth2 = _this.gapi.auth2.getAuthInstance();
-	        auth2.isSignedIn.listen(_this.updateSigninStatus);
-	        return _this.updateSigninStatus(auth2.isSignedIn.get());
+	        var authInstance;
+	        authInstance = _this.gapi.auth2.getAuthInstance();
+	        authInstance.isSignedIn.listen(_this.updateSigninStatus);
+	        return _this.updateSigninStatus(authInstance.isSignedIn.get());
 	      };
 	    })(this));
 	  };

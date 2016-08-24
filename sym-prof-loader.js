@@ -250,7 +250,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	    return authInstance.signIn({
 	      scope: this.scopes().join(' '),
 	      prompt: 'select_account'
-	    });
+	    }).then((function(_this) {
+	      return function() {
+	        return _this.updateSigninStatus(authInstance.isSignedIn.get());
+	      };
+	    })(this));
 	  };
 
 	  GoogleProfileProvider.prototype.updateSigninStatus = function(isSignedIn) {
@@ -280,16 +284,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	  };
 
 	  GoogleProfileProvider.prototype.initAuth = function() {
-	    this.initButton(this.config.button);
 	    this.gapi.client.setApiKey(this.config.apiKey);
 	    return this.gapi.auth2.init({
 	      client_id: this.config.clientId,
 	      scope: this.scopes().join(' ')
 	    }).then((function(_this) {
 	      return function() {
-	        var authInstance;
-	        authInstance = _this.gapi.auth2.getAuthInstance();
-	        return authInstance.isSignedIn.listen(_this.updateSigninStatus);
+	        return _this.initButton(_this.config.button);
 	      };
 	    })(this));
 	  };

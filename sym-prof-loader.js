@@ -161,7 +161,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      results = [];
 	      for (selector in ref) {
 	        attrName = ref[selector];
-	        results.push(value);
+	        results.push(attrName);
 	      }
 	      return results;
 	    }).call(this);

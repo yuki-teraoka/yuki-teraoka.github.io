@@ -116,10 +116,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	        results1 = [];
 	        for (i = 0, len = ref1.length; i < len; i++) {
 	          elem = ref1[i];
-	          results1.push(assignElementValue(elem, typeof profile[attrName] === "function" ? profile[attrName]() : void 0));
+	          results1.push(this.assignElementValue(elem, typeof profile[attrName] === "function" ? profile[attrName]() : void 0));
 	        }
 	        return results1;
-	      })());
+	      }).call(this));
 	    }
 	    return results;
 	  };

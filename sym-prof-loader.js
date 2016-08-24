@@ -171,7 +171,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      results = [];
 	      for (providerConfig = i = 0, len = ref.length; i < len; providerConfig = ++i) {
 	        providerName = ref[providerConfig];
-	        results.push(initProvider(providerName, extend({
+	        results.push(this.initProvider(providerName, extend({
 	          attributeNames: attributeNames
 	        }, providerConfig)));
 	      }

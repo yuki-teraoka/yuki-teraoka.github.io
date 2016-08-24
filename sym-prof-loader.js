@@ -356,11 +356,13 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 4 */
 /***/ function(module, exports) {
 
-	var ProfileProvider;
+	var ProfileProvider,
+	  bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
 
 	ProfileProvider = (function() {
 	  function ProfileProvider(config) {
 	    this.config = config;
+	    this.profileLoaded = bind(this.profileLoaded, this);
 	  }
 
 	  ProfileProvider.prototype.initButton = function(option) {

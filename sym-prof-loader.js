@@ -265,13 +265,13 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	  GoogleProfileProvider.prototype.onClientLoad = function() {
 	    this.gapi = window.gapi;
-	    this.gapi.client.setApiKey(this.config.apiKey);
 	    return this.gapi.load('client:auth2', this.initAuth);
 	  };
 
 	  GoogleProfileProvider.prototype.initAuth = function() {
 	    this.initButton(this.config.button);
 	    this.gapi.auth2.isSignedIn.listen(this.updateSigninStatus);
+	    this.gapi.client.setApiKey(this.config.apiKey);
 	    return this.gapi.client.init({
 	      client_id: this.config.clientId,
 	      scope: this.scopes()

@@ -273,7 +273,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    this.gapi.client.setApiKey(this.config.apiKey);
 	    return this.gapi.auth2.init({
 	      client_id: this.config.clientId,
-	      scope: this.scopes()
+	      scope: this.scopes().join(' ')
 	    }).then(function() {
 	      var auth2;
 	      auth2 = this.gapi.auth2.getAuthInstance();

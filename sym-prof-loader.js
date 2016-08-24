@@ -4,9 +4,9 @@
 	else if(typeof define === 'function' && define.amd)
 		define([], factory);
 	else if(typeof exports === 'object')
-		exports["SymProfileLoader"] = factory();
+		exports["SymProfLoader"] = factory();
 	else
-		root["SymProfileLoader"] = factory();
+		root["SymProfLoader"] = factory();
 })(this, function() {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
@@ -208,7 +208,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	})();
 
-	window.SymProfLoader = SymProfLoader;
+	module.exports = SymProfLoader;
 
 
 /***/ },
@@ -245,13 +245,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	  };
 
 	  GoogleProfileProvider.prototype.onButtonClick = function() {
-	    var authInstance, options;
+	    var authInstance;
 	    authInstance = this.gapi.auth2.getAuthInstance();
-	    options = new this.gapi.auth2.SigninOptionsBuilder();
-	    options.setFetchBasicProfile(true);
-	    options.setPrompt('select_account');
-	    options.setScope(this.scopes().join(' '));
-	    return authInstance.signIn();
+	    return authInstance.signIn({
+	      scope: this.scopes().join(' '),
+	      prompt: 'select_account'
+	    });
 	  };
 
 	  GoogleProfileProvider.prototype.updateSigninStatus = function(isSignedIn) {

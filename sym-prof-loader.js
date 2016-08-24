@@ -192,8 +192,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 	    providerClass = (function() {
 	      switch (providerName) {
-	        case 'google':
+	        case 'yconnect':
 	          return __webpack_require__(2);
+	        case 'google':
+	          return __webpack_require__(5);
 	        default:
 	          return console.log("Unsupported Provider '" + providerName + "'");
 	      }
@@ -213,6 +215,192 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 /* 2 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var YConnectProfileProvider,
+	  bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
+	  extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+	  hasProp = {}.hasOwnProperty;
+
+	YConnectProfileProvider = (function(superClass) {
+	  var LIBRARY_URL, YConnectProfile;
+
+	  extend(YConnectProfileProvider, superClass);
+
+	  LIBRARY_URL = 'https://s.yimg.jp/images/login/yconnect/auth/1.0.3/auth-min.js';
+
+	  YConnectProfileProvider.load = function(config) {
+	    return new YConnectProfileProvider(config).initialize();
+	  };
+
+	  function YConnectProfileProvider(config1) {
+	    this.config = config1;
+	    this.initAuth = bind(this.initAuth, this);
+	    this.onClientLoad = bind(this.onClientLoad, this);
+	    this.updateSigninStatus = bind(this.updateSigninStatus, this);
+	    this.onButtonClick = bind(this.onButtonClick, this);
+	    window.addEventListener("message", function(res) {
+	      return console.log(res);
+	    });
+	  }
+
+	  YConnectProfileProvider.prototype.initButton = function(option) {};
+
+	  YConnectProfileProvider.prototype.initialize = function() {
+	    this.loadYconnect();
+	    return this;
+	  };
+
+	  YConnectProfileProvider.prototype.onButtonClick = function() {};
+
+	  YConnectProfileProvider.prototype.updateSigninStatus = function(isSignedIn) {
+	    if (isSignedIn) {
+	      return console.log("..");
+	    }
+	  };
+
+	  YConnectProfileProvider.prototype.createProfile = function() {};
+
+	  YConnectProfileProvider.prototype.loadYconnect = function() {
+	    var ref;
+	    if (typeof YAHOO !== "undefined" && YAHOO !== null ? (ref = YAHOO.JP) != null ? ref.yconnect : void 0 : void 0) {
+	      return this.onClientLoad();
+	    } else {
+	      window.yconnectInit = this.onClientLoad;
+	      return this.loadScript(LIBRARY_URL);
+	    }
+	  };
+
+	  YConnectProfileProvider.prototype.onClientLoad = function() {
+	    this.yconnect = YAHOO.JP.yconnect;
+	    return this.initAuth();
+	  };
+
+	  YConnectProfileProvider.prototype.initAuth = function() {
+	    return this.yconnect.Authorization.init({
+	      button: this.config.button,
+	      authorization: {
+	        responseType: 'id_token token',
+	        clientId: this.config.clientId,
+	        redirectUri: 'https://yuki-teraoka.github.io',
+	        scope: this.scopes().join(' '),
+	        state: Math.random().toString(36).slice(-8),
+	        nonce: Math.random().toString(36).slice(-8)
+	      }
+	    });
+	  };
+
+	  YConnectProfile = (function(superClass1) {
+	    extend(YConnectProfile, superClass1);
+
+	    function YConnectProfile() {
+	      return YConnectProfile.__super__.constructor.apply(this, arguments);
+	    }
+
+	    return YConnectProfile;
+
+	  })(__webpack_require__(3));
+
+	  return YConnectProfileProvider;
+
+	})(__webpack_require__(4));
+
+	module.exports = YConnectProfileProvider;
+
+
+/***/ },
+/* 3 */
+/***/ function(module, exports) {
+
+	var Profile;
+
+	Profile = (function() {
+	  var ATTRIBUTE_NAMES, attrName, i, len;
+
+	  ATTRIBUTE_NAMES = ['givenName', 'firstName', 'email'];
+
+	  function Profile(attributs) {
+	    this.attributs = attributs != null ? attributs : {};
+	  }
+
+	  Profile.prototype.fullName = function() {
+	    return givenName + " " + firstName;
+	  };
+
+	  for (i = 0, len = ATTRIBUTE_NAMES.length; i < len; i++) {
+	    attrName = ATTRIBUTE_NAMES[i];
+	    Profile.prototype.attrName = (function() {
+	      return this.attributes[attrName];
+	    });
+	  }
+
+	  return Profile;
+
+	})();
+
+	module.exports = Profile;
+
+
+/***/ },
+/* 4 */
+/***/ function(module, exports) {
+
+	var ProfileProvider,
+	  bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
+
+	ProfileProvider = (function() {
+	  function ProfileProvider(config) {
+	    this.config = config;
+	    this.profileLoaded = bind(this.profileLoaded, this);
+	  }
+
+	  ProfileProvider.prototype.initButton = function(option) {
+	    var elem, i, len, ref, results;
+	    ref = document.querySelectorAll(option);
+	    results = [];
+	    for (i = 0, len = ref.length; i < len; i++) {
+	      elem = ref[i];
+	      elem.className.replace(/(?:^| ) *prof-button-loading *(?: |$)/, 'none');
+	      if (elem.className) {
+	        elem.className += ' ';
+	      }
+	      elem.className += 'prof-button-initialized';
+	      results.push(elem.addEventListener('click', this.onButtonClick, false));
+	    }
+	    return results;
+	  };
+
+	  ProfileProvider.prototype.profileLoaded = function(profile) {
+	    var event;
+	    this.profile = profile;
+	    event = document.createEvent('Event');
+	    event.initEvent('profileLoaded', true, false);
+	    event.profile = this.profile;
+	    event.profileProvider = this;
+	    return document.dispatchEvent(event);
+	  };
+
+	  ProfileProvider.prototype.scopes = function() {
+	    return ['openid', 'profile', 'email'];
+	  };
+
+	  ProfileProvider.prototype.loadScript = function(url) {
+	    var fs, script;
+	    fs = document.getElementsByTagName('script')[0];
+	    script = document.createElement('script');
+	    script.setAttribute('src', url);
+	    return fs.parentNode.insertBefore(script, fs);
+	  };
+
+	  return ProfileProvider;
+
+	})();
+
+	module.exports = ProfileProvider;
+
+
+/***/ },
+/* 5 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var GoogleProfileProvider,
@@ -323,97 +511,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	})(__webpack_require__(4));
 
 	module.exports = GoogleProfileProvider;
-
-
-/***/ },
-/* 3 */
-/***/ function(module, exports) {
-
-	var Profile;
-
-	Profile = (function() {
-	  var ATTRIBUTE_NAMES, attrName, i, len;
-
-	  ATTRIBUTE_NAMES = ['givenName', 'firstName', 'email'];
-
-	  function Profile(attributs) {
-	    this.attributs = attributs != null ? attributs : {};
-	  }
-
-	  Profile.prototype.fullName = function() {
-	    return givenName + " " + firstName;
-	  };
-
-	  for (i = 0, len = ATTRIBUTE_NAMES.length; i < len; i++) {
-	    attrName = ATTRIBUTE_NAMES[i];
-	    Profile.prototype.attrName = (function() {
-	      return this.attributes[attrName];
-	    });
-	  }
-
-	  return Profile;
-
-	})();
-
-	module.exports = Profile;
-
-
-/***/ },
-/* 4 */
-/***/ function(module, exports) {
-
-	var ProfileProvider,
-	  bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
-
-	ProfileProvider = (function() {
-	  function ProfileProvider(config) {
-	    this.config = config;
-	    this.profileLoaded = bind(this.profileLoaded, this);
-	  }
-
-	  ProfileProvider.prototype.initButton = function(option) {
-	    var elem, i, len, ref, results;
-	    ref = document.querySelectorAll(option);
-	    results = [];
-	    for (i = 0, len = ref.length; i < len; i++) {
-	      elem = ref[i];
-	      elem.className.replace(/(?:^| ) *prof-button-loading *(?: |$)/, 'none');
-	      if (elem.className) {
-	        elem.className += ' ';
-	      }
-	      elem.className += 'prof-button-initialized';
-	      results.push(elem.addEventListener('click', this.onButtonClick, false));
-	    }
-	    return results;
-	  };
-
-	  ProfileProvider.prototype.profileLoaded = function(profile) {
-	    var event;
-	    this.profile = profile;
-	    event = document.createEvent('Event');
-	    event.initEvent('profileLoaded', true, false);
-	    event.profile = this.profile;
-	    event.profileProvider = this;
-	    return document.dispatchEvent(event);
-	  };
-
-	  ProfileProvider.prototype.scopes = function() {
-	    return ['profile', 'email'];
-	  };
-
-	  ProfileProvider.prototype.loadScript = function(url) {
-	    var fs, script;
-	    fs = document.getElementsByTagName('script')[0];
-	    script = document.createElement('script');
-	    script.setAttribute('src', url);
-	    return fs.parentNode.insertBefore(script, fs);
-	  };
-
-	  return ProfileProvider;
-
-	})();
-
-	module.exports = ProfileProvider;
 
 
 /***/ }

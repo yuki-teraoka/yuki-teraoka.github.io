@@ -5,16 +5,22 @@
     <meta charset='utf-8' />
   </head>
   <body>
+		
+    <button id="googleAuth">Googleから自動入力</button>
 
-    <button id="googleAuth">Google</button>
-
-		<input type="email" value="" id="email" placeholder="test@example.com" />
+		<form>
+			<input type="text" value="" id="givenName" placeholder="品治" />
+			<input type="text" value="" id="firstName" placeholder="太郎" />
+			<input type="email" value="" id="email" placeholder="test@example.com" />
+		</form>
 
     <script src="./sym-prof-loader.js"></script>
     <script type="text/javascript">
 			SymProfLoader.init({
 			  attributes: {
-			    '#email': 'email'
+			    '#email': 'email',
+			    '#firstName': 'firstName',
+			    '#givenName': 'givenName'
 			  },
 			  providers: {
 			    google: {

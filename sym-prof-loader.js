@@ -101,11 +101,17 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }
 
 	  SymProfLoader.prototype.onProfileLoaded = function(event) {
+	    if (__DEBUG__) {
+	      console.log(event);
+	    }
 	    return this.assignAttributes(event.profile);
 	  };
 
 	  SymProfLoader.prototype.assignAttributes = function(profile) {
 	    var attrName, elem, ref, results, selector;
+	    if (__DEBUG__) {
+	      console.log(profile);
+	    }
 	    ref = this.attributes;
 	    results = [];
 	    for (selector in ref) {

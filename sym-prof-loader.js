@@ -245,9 +245,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	  };
 
 	  GoogleProfileProvider.prototype.onButtonClick = function() {
-	    var authInstance;
+	    var authInstance, options;
 	    authInstance = this.gapi.auth2.getAuthInstance();
-	    authInstance.signOut();
+	    options = new this.gapi.auth2.SigninOptionsBuilder();
+	    options.setFetchBasicProfile(true);
+	    options.setPrompt('select_account');
+	    options.setScope(this.scopes().join(' '));
 	    return authInstance.signIn();
 	  };
 
@@ -287,8 +290,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      return function() {
 	        var authInstance;
 	        authInstance = _this.gapi.auth2.getAuthInstance();
-	        authInstance.isSignedIn.listen(_this.updateSigninStatus);
-	        return _this.updateSigninStatus(authInstance.isSignedIn.get());
+	        return authInstance.isSignedIn.listen(_this.updateSigninStatus);
 	      };
 	    })(this));
 	  };

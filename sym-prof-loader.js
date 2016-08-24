@@ -236,7 +236,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    this.initAuth = bind(this.initAuth, this);
 	    this.onClientLoad = bind(this.onClientLoad, this);
 	    this.updateSigninStatus = bind(this.updateSigninStatus, this);
-	    this.requestProfile = bind(this.requestProfile, this);
+	    this.onButtonClick = bind(this.onButtonClick, this);
 	  }
 
 	  GoogleProfileProvider.prototype.initialize = function() {
@@ -244,7 +244,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    return this;
 	  };
 
-	  GoogleProfileProvider.prototype.requestProfile = function(event) {
+	  GoogleProfileProvider.prototype.onButtonClick = function() {
 	    this.gapi.auth2.signOut();
 	    return this.gapi.auth2.signIn();
 	  };
@@ -376,7 +376,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        elem.className += ' ';
 	      }
 	      elem.className += 'prof-button-initialized';
-	      results.push(elem.addEventListener('click', this.onButtonClick));
+	      results.push(elem.addEventListener('click', this.onButtonClick, false));
 	    }
 	    return results;
 	  };

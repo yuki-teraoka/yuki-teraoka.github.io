@@ -317,14 +317,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	Profile = (function() {
 	  var ATTRIBUTE_NAMES, attrName, i, len;
 
-	  ATTRIBUTE_NAMES = ['givenName', 'firstName', 'email'];
+	  ATTRIBUTE_NAMES = ['givenName', 'familyName', 'email'];
 
 	  function Profile(attributs) {
 	    this.attributs = attributs != null ? attributs : {};
 	  }
 
 	  Profile.prototype.fullName = function() {
-	    return givenName + " " + firstName;
+	    return (familyName()) + " " + (givenName());
 	  };
 
 	  for (i = 0, len = ATTRIBUTE_NAMES.length; i < len; i++) {
@@ -494,8 +494,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	      return this.basicProfile.getGivenName();
 	    };
 
-	    BasicProfile.prototype.firstName = function() {
-	      return this.basicProfile.getFirstName();
+	    BasicProfile.prototype.familyName = function() {
+	      return this.basicProfile.getFamilyName();
 	    };
 
 	    BasicProfile.prototype.email = function() {

@@ -9,8 +9,8 @@
     <button id="googleAuth">Googleから自動入力</button>
 
 		<form>
-			<input type="text" value="" id="givenName" placeholder="品治" />
-			<input type="text" value="" id="firstName" placeholder="太郎" />
+			<input type="text" value="" id="familyName" placeholder="品治" />
+			<input type="text" value="" id="givenName"  placeholder="太郎" />
 			<input type="email" value="" id="email" placeholder="test@example.com" />
 		</form>
 
@@ -19,7 +19,7 @@
 			SymProfLoader.init({
 			  attributes: {
 			    '#email': 'email',
-			    '#firstName': 'firstName',
+			    '#familyName': 'familyName',
 			    '#givenName': 'givenName'
 			  },
 			  providers: {

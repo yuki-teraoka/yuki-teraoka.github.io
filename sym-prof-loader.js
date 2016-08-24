@@ -97,9 +97,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	    this.providers = providers;
 	    this.onProfileLoaded = bind(this.onProfileLoaded, this);
 	    document.addEventListener('profileLoaded', this.onProfileLoaded);
-	    if (__DEBUG__) {
-	      console.log(this.providers);
-	    }
 	    this.initProviders();
 	  }
 
@@ -184,6 +181,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	  SymProfLoader.prototype.initProvider = function(providerName, config) {
 	    var providerClass;
+	    if (__DEBUG__) {
+	      console.log(providerName, config);
+	    }
 	    providerClass = (function() {
 	      switch (providerName) {
 	        case 'google':

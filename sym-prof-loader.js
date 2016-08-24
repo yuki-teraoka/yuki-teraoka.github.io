@@ -310,7 +310,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	})(__webpack_require__(4));
 
-	module.exports = GoogleProfileLoader;
+	module.exports = GoogleProfileProvider;
 
 
 /***/ },

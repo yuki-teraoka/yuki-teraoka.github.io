@@ -166,11 +166,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	      return results;
 	    }).call(this);
 	    return this.providers = (function() {
-	      var i, len, ref, results;
+	      var ref, results;
 	      ref = this.providerOptions;
 	      results = [];
-	      for (providerConfig = i = 0, len = ref.length; i < len; providerConfig = ++i) {
-	        providerName = ref[providerConfig];
+	      for (providerName in ref) {
+	        providerConfig = ref[providerName];
 	        results.push(this.initProvider(providerName, extend({
 	          attributeNames: attributeNames
 	        }, providerConfig)));

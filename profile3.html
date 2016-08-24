@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Say hello using the People API</title>
+    <meta charset='utf-8' />
+  </head>
+  <body>
+		
+    <span class="yconnectLogin"></span>
+    <button id="googleAuth">Googleから自動入力</button>
+
+		<form>
+			<input type="text" value="" id="familyName" placeholder="品治" />
+			<input type="text" value="" id="givenName"  placeholder="太郎" />
+			<input type="email" value="" id="email" placeholder="test@example.com" />
+		</form>
+
+    <script src="./sym-prof-loader.js"></script>
+    <script type="text/javascript">
+			SymProfLoader.init({
+			  attributes: {
+			    '#email': 'email',
+			    '#familyName': 'familyName',
+			    '#givenName': 'givenName'
+			  },
+			  providers: {
+			    google: {
+			      apiKey: "kPebWtoQmz9wO0qQCKCn8B",
+			      clientId: "270109659898-qh6ovi2cj1b0g4lggttsjg17d1ub8kdg.apps.googleusercontent.com",
+						button: '#googleAuth'
+			    },
+			    yconnect: {
+			      clientId: "dj0zaiZpPTNwM3p6Nkt5Tm1hYiZzPWNvbnN1bWVyc2VjcmV0Jng9M2E-",
+		        button: {
+              format: "image",
+              type: "b",
+              textType:"b",
+              width: 280,
+              height: 38,
+              className: "yconnectLogin"
+            }
+			    }
+			  }
+			});
+    </script>
+  </body>
+</html>

@@ -367,7 +367,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        elem.className += ' ';
 	      }
 	      elem.className += 'prof-button-initialized';
-	      results.push(elem.addEventListener(this.onButtonClick));
+	      results.push(elem.addEventListener('click', this.onButtonClick));
 	    }
 	    return results;
 	  };

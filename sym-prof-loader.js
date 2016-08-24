@@ -271,7 +271,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  GoogleProfileProvider.prototype.initAuth = function() {
 	    this.initButton(this.config.button);
 	    this.gapi.client.setApiKey(this.config.apiKey);
-	    return this.gapi.client.init({
+	    return this.gapi.auth2.init({
 	      client_id: this.config.clientId,
 	      scope: this.scopes()
 	    }).then(function() {

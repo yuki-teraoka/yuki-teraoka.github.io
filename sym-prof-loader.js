@@ -92,9 +92,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	    return new SymProfLoader(options.attributes, options.providers);
 	  };
 
-	  function SymProfLoader(attributes, providers) {
+	  function SymProfLoader(attributes, providerOptions) {
 	    this.attributes = attributes;
-	    this.providers = providers;
+	    this.providerOptions = providerOptions;
 	    this.onProfileLoaded = bind(this.onProfileLoaded, this);
 	    document.addEventListener('profileLoaded', this.onProfileLoaded);
 	    this.initProviders();
@@ -167,7 +167,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }).call(this);
 	    return this.providers = (function() {
 	      var i, len, ref, results;
-	      ref = this.providers;
+	      ref = this.providerOptions;
 	      results = [];
 	      for (providerConfig = i = 0, len = ref.length; i < len; providerConfig = ++i) {
 	        providerName = ref[providerConfig];

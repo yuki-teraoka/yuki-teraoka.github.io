@@ -231,7 +231,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	    this.onClientLoad = bind(this.onClientLoad, this);
 	    this.updateSigninStatus = bind(this.updateSigninStatus, this);
 	    this.requestProfile = bind(this.requestProfile, this);
-	    supr(this.config);
 	  }
 
 	  GoogleProfileProvider.prototype.initialize = function() {

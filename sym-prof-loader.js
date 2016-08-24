@@ -234,7 +234,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }
 
 	  GoogleProfileProvider.prototype.initialize = function() {
-	    loadGapi();
+	    this.loadGapi();
 	    return this;
 	  };
 

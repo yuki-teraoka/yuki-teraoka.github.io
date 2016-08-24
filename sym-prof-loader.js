@@ -286,7 +286,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        auth2.isSignedIn.listen(_this.updateSigninStatus);
 	        return _this.updateSigninStatus(auth2.isSignedIn.get());
 	      };
-	    })(this)).then(this.profileLoaded);
+	    })(this));
 	  };
 
 	  BasicProfile = (function(superClass1) {

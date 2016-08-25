@@ -305,7 +305,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      return this.onClientLoad();
 	    } else {
 	      window.yconnectInit = this.onClientLoad;
-	      return this.loadScript(LIBRARY_URL);
+	      return this.loadScript(BUTTON_LIBRARY_URL);
 	    }
 	  };
 

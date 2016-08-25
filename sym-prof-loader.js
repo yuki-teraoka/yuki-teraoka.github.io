@@ -311,7 +311,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	  YConnectProfileProvider.prototype.onClientLoad = function() {
 	    this.yconnect = YAHOO.JP.yconnect;
-	    return this.initAuth();
+	    return this.initButton();
 	  };
 
 	  YConnectProfileProvider.prototype.initButton = function() {

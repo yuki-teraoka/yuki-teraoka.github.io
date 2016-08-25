@@ -2,27 +2,30 @@
 <html>
   <head><meta charset='utf-8' />
   <script type="text/javascript">
-    var hash = location.hash.match(/^#(.+)$/)[1];
-    if (!hash) {
-			window.close();
-			return;
-		}
-		var targetWindow = window.opener;
-    if (!targetWindow) {
-			return;
-		}
-    var origin = targetWindow.location.href.match(/^https?:\/\/[^/?#]+)/)[0];
-    if (!origin) {
-			return;
-		}
-		var pairs = hash.split('&');
-    var data = {};
-    for(var i=0,l=pairs.length; i<l; i++) {
-      var pair = pairs.split('=', 2);
-			data[pair[0]] = decodeUriComponent(pair[1]);
-		}
-    targetWindow.postMessage(data, origin);
-    window.close();
+    (function() {
+	    var hash = location.hash.match(/^#(.+)$/)[1];
+	    if (!hash) {
+				window.close();
+				return;
+			}
+			var targetWindow = window.opener;
+	    if (!targetWindow) {
+				return;
+			}
+			var targetLocation = targetWindow.location;
+	    var origin = targetLocation.href.match(/^https?:\/\/[^/?#]+)/)[0];
+	    if (!origin) {
+				return;
+			}
+			var pairs = hash.split('&');
+	    var data = {};
+	    for(var i=0,l=pairs.length; i<l; i++) {
+	      var pair = pairs.split('=', 2);
+				data[pair[0]] = decodeUriComponent(pair[1]);
+			}
+	    targetWindow.postMessage(data, origin);
+	    window.close();
+    )();
   </script>
   </head>
   <body>

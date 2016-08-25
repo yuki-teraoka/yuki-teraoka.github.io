@@ -282,7 +282,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    return this.yconnect.Authorization.init({
 	      button: this.config.button,
 	      authorization: {
-	        responseType: 'id_token token',
+//	        responseType: 'id_token token',
 	        clientId: this.config.clientId,
 	        redirectUri: REDIRECT_URI,
 	        scope: this.scopes().join(' '),

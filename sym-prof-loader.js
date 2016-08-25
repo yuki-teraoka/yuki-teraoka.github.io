@@ -223,11 +223,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	  hasProp = {}.hasOwnProperty;
 
 	YConnectProfileProvider = (function(superClass) {
-	  var LIBRARY_URL, REDIRECT_URI, YConnectProfile;
+	  var AUTHORIZATION_END_POINT, BUTTON_LIBRARY_URL, REDIRECT_URI, YConnectProfile;
 
 	  extend(YConnectProfileProvider, superClass);
 
-	  LIBRARY_URL = 'https://s.yimg.jp/images/login/yconnect/auth/1.0.3/auth-min.js';
+	  BUTTON_LIBRARY_URL = 'https://s.yimg.jp/images/login/yconnect/button/1.0.1/button-min.js';
+
+	  AUTHORIZATION_END_POINT = 'https://auth.login.yahoo.co.jp/yconnect/v1/authorization';
 
 	  REDIRECT_URI = 'https://yuki-teraoka.github.io/cb.html';
 
@@ -237,7 +239,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	  function YConnectProfileProvider(config1) {
 	    this.config = config1;
-	    this.initAuth = bind(this.initAuth, this);
+	    this.initButton = bind(this.initButton, this);
 	    this.onClientLoad = bind(this.onClientLoad, this);
 	    this.updateSigninStatus = bind(this.updateSigninStatus, this);
 	    this.onButtonClick = bind(this.onButtonClick, this);
@@ -253,7 +255,41 @@ return /******/ (function(modules) { // webpackBootstrap
 	    return this;
 	  };
 
-	  YConnectProfileProvider.prototype.onButtonClick = function() {};
+	  YConnectProfileProvider.prototype.buildParams = function() {
+	    this.state = Math.random().toString(36).slice(-8);
+	    this.nonce = Math.random().toString(36).slice(-8);
+	    return {
+	      response_type: 'id_token token',
+	      client_id: this.config.clientId,
+	      redirect_uri: REDIRECT_URI,
+	      state: this.state,
+	      scope: this.scopes().join(' '),
+	      nonce: this.nonce,
+	      display: 'popup',
+	      prompt: 'consent'
+	    };
+	  };
+
+	  YConnectProfileProvider.prototype.onButtonClick = function(e) {
+	    var height, key, left, params, top, url, value, width;
+	    e.preventDefault();
+	    width = 500;
+	    height = 400;
+	    params = this.buildParams();
+	    url = AUTHORIZATION_END_POINT + "?" + ((function() {
+	      var results;
+	      results = [];
+	      for (key in params) {
+	        value = params[key];
+	        results.push(key + '=' + encodeURIComponent(value));
+	      }
+	      return results;
+	    })()).join('&');
+	    left = (window.screen.availWidth - width) / 2;
+	    top = (window.screen.availHeight - height) / 2;
+	    window.open(url, 'yconnect', "width=" + width + ",height=" + height + ",left=" + left + ",top=" + top + ",menubar=yes,status=yes,scrollbars=yes");
+	    return false;
+	  };
 
 	  YConnectProfileProvider.prototype.updateSigninStatus = function(isSignedIn) {
 	    if (isSignedIn) {
@@ -278,18 +314,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	    return this.initAuth();
 	  };
 
-	  YConnectProfileProvider.prototype.initAuth = function() {
-	    return this.yconnect.Authorization.init({
-	      button: this.config.button,
-	      authorization: {
-//	        responseType: 'id_token token',
-	        clientId: this.config.clientId,
-	        redirectUri: REDIRECT_URI,
-	        scope: this.scopes().join(' '),
-	        state: Math.random().toString(36).slice(-8),
-	        nonce: Math.random().toString(36).slice(-8)
-	      }
-	    });
+	  YConnectProfileProvider.prototype.initButton = function() {
+	    return this.yconnect.ImageButton.init(this.config.button);
 	  };
 
 	  YConnectProfile = (function(superClass1) {

@@ -248,8 +248,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	    });
 	  }
 
-	  YConnectProfileProvider.prototype.initButton = function(option) {};
-
 	  YConnectProfileProvider.prototype.initialize = function() {
 	    this.loadYconnect();
 	    return this;
@@ -315,7 +313,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	  };
 
 	  YConnectProfileProvider.prototype.initButton = function() {
-	    return this.yconnect.ImageButton.init(this.config.button);
+	    var elem, i, len, ref, ref1, results;
+	    this.yconnect.ImageButton.init(this.config.button);
+	    ref1 = document.querySelectorAll('.' + (((ref = this.config.button) != null ? ref.className : void 0) || 'yconnectLogin'));
+	    results = [];
+	    for (i = 0, len = ref1.length; i < len; i++) {
+	      elem = ref1[i];
+	      results.push(elem.addEventListener('click', this.onButtonClick, false));
+	    }
+	    return results;
 	  };
 
 	  YConnectProfile = (function(superClass1) {

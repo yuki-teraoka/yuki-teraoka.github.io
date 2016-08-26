@@ -292,7 +292,7 @@ var SymProfLoader =
 	  };
 
 	  YConnectProfileProvider.prototype.parseToken = function(idToken) {
-	    return getJSON(CHECK_TOKEN_ENDPPOINT + ("?id_token=" + idToken));
+	    return getJSON(CHECK_TOKEN_ENDPOINT + ("?id_token=" + idToken));
 	  };
 
 	  YConnectProfileProvider.prototype.validateToken = function(params) {

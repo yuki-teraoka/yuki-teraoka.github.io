@@ -241,6 +241,7 @@ var SymProfLoader =
 	    this.onClientLoad = bind(this.onClientLoad, this);
 	    this.updateSigninStatus = bind(this.updateSigninStatus, this);
 	    this.onButtonClick = bind(this.onButtonClick, this);
+	    this.validateToken = bind(this.validateToken, this);
 	    this.parseToken = bind(this.parseToken, this);
 	    this.onMessage = bind(this.onMessage, this);
 	  }
@@ -282,9 +283,6 @@ var SymProfLoader =
 	    if (this.state !== data.state) {
 	      return;
 	    }
-	    if (this.nonce !== data.nonce) {
-	      return;
-	    }
 	    idToken = data.id_token;
 	    return this.parseToken(idToken).then((function(_this) {
 	      return function(params) {
@@ -297,7 +295,11 @@ var SymProfLoader =
 	    return getJSON(CHECK_TOKEN_ENDPPOINT + ("?id_token=" + idToken));
 	  };
 
-	  YConnectProfileProvider.prototype.validateToken = function(params) {};
+	  YConnectProfileProvider.prototype.validateToken = function(params) {
+	    if (this.nonce !== params.nonce) {
+
+	    }
+	  };
 
 	  YConnectProfileProvider.prototype.getUserInfo = function(accessToken) {
 	    return getJSON(USER_INFO_ENDPOINT + "?schema=openid", {

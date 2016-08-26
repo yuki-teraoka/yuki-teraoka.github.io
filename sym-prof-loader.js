@@ -275,7 +275,7 @@ var SymProfLoader =
 	  YConnectProfileProvider.prototype.onMessage = function(event) {
 	    var data, idToken;
 	    console.log(event);
-	    if (event.origin !== 'https://yuki-teraoka.github.io/') {
+	    if (event.origin !== 'https://yuki-teraoka.github.io') {
 	      return;
 	    }
 	    data = event.data;

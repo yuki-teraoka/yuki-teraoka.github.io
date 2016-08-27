@@ -59,7 +59,7 @@
       // Load the API and make an API call.  Display the results on the screen.
       function makeApiCall() {
         gapi.client.load('people', 'v1', function() {
-          var request = gapi.client.people.people.get({
+          var request = gapi.client.people.get({
             resourceName: 'people/me'
           });
           request.execute(function(resp) {

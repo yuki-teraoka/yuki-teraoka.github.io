@@ -28,7 +28,8 @@
         gapi.client.setApiKey(apiKey);
         gapi.auth2.init({
             client_id: clientId,
-            scope: scopes
+            scope: scopes,
+						prompt: 'consent'
         }).then(function () {
           auth2 = gapi.auth2.getAuthInstance();
           // Listen for sign-in state changes.

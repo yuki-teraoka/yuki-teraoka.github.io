@@ -227,7 +227,7 @@ var SymProfLoader =
 
 	  CHECK_TOKEN_ENDPOINT = 'https://auth.login.yahoo.co.jp/yconnect/v1/checktoken';
 
-	  USER_INFO_ENDPOINT = 'https://userinfo.yahooapis.jp/yconnect/v1/attribute';
+	  USER_INFO_ENDPOINT = 'https://userinfo.yahooapis.jp/ycuinfo';
 
 	  REDIRECT_URI = 'https://yuki-teraoka.github.io/cb.html';
 

@@ -362,9 +362,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  };
 
 	  YConnectProfileProvider.prototype.createProfile = function(attributes) {
-	    var prof;
-	    prof = __webpack_require__(8);
-	    return new prof(attributes);
+	    return new YConnectProfile(attributes);
 	  };
 
 	  YConnectProfileProvider.prototype.loadYconnect = function() {
@@ -1598,7 +1596,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	  for (i = 0, len = ATTRIBUTE_NAMES.length; i < len; i++) {
 	    attrName = ATTRIBUTE_NAMES[i];
-	    Profile.prototype.attrName = (function() {
+	    Profile.prototype[attrName] = (function() {
 	      return this.attributes[attrName];
 	    });
 	  }

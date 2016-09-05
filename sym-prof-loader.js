@@ -1582,7 +1582,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var Profile;
 
 	Profile = (function() {
-	  var ATTRIBUTE_NAMES, attrName, i, len;
+	  var ATTRIBUTE_NAMES;
 
 	  ATTRIBUTE_NAMES = ['givenName', 'familyName', 'email'];
 
@@ -1594,12 +1594,17 @@ return /******/ (function(modules) { // webpackBootstrap
 	    return (familyName()) + " " + (givenName());
 	  };
 
-	  for (i = 0, len = ATTRIBUTE_NAMES.length; i < len; i++) {
-	    attrName = ATTRIBUTE_NAMES[i];
-	    Profile.prototype[attrName] = (function() {
-	      return this.attributes[attrName];
-	    });
-	  }
+	  Profile.prototype[attrName] = (function() {
+	    var attrName, i, len, name, results;
+	    results = [];
+	    for (i = 0, len = ATTRIBUTE_NAMES.length; i < len; i++) {
+	      attrName = ATTRIBUTE_NAMES[i];
+	      results.push((name = attrName, function() {
+	        return this.attributes[name];
+	      }));
+	    }
+	    return results;
+	  })();
 
 	  return Profile;
 

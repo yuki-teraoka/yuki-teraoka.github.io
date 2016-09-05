@@ -1582,9 +1582,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	var Profile;
 
 	Profile = (function() {
-	  var ATTRIBUTE_NAMES, attrName, i, len;
+	  var ATTRIBUTE_NAME_MAP, attrName, methodName;
 
-	  ATTRIBUTE_NAMES = ['givenName', 'familyName', 'email'];
+	  ATTRIBUTE_NAME_MAP = {
+	    givenName: 'given_name',
+	    familyName: 'family_name',
+	    email: 'email'
+	  };
 
 	  function Profile(attributes) {
 	    this.attributes = attributes != null ? attributes : {};
@@ -1594,9 +1598,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	    return (familyName()) + " " + (givenName());
 	  };
 
-	  for (i = 0, len = ATTRIBUTE_NAMES.length; i < len; i++) {
-	    attrName = ATTRIBUTE_NAMES[i];
-	    Profile.prototype[attrName] = (function() {
+	  for (methodName in ATTRIBUTE_NAME_MAP) {
+	    attrName = ATTRIBUTE_NAME_MAP[methodName];
+	    Profile.prototype[methodName] = (function() {
 	      var name;
 	      name = attrName;
 	      return function() {

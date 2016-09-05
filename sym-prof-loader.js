@@ -1586,8 +1586,8 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	  ATTRIBUTE_NAMES = ['givenName', 'familyName', 'email'];
 
-	  function Profile(attributs) {
-	    this.attributs = attributs != null ? attributs : {};
+	  function Profile(attributes) {
+	    this.attributes = attributes != null ? attributes : {};
 	  }
 
 	  Profile.prototype.fullName = function() {

@@ -362,7 +362,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  };
 
 	  YConnectProfileProvider.prototype.createProfile = function(attributes) {
-	    return new YConnectProfile(attributes);
+	    return new __webpack_require__(8)('profile')(attributes);
 	  };
 
 	  YConnectProfileProvider.prototype.loadYconnect = function() {
@@ -401,11 +401,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	    return YConnectProfile;
 
-	  })(__webpack_require__(8));
+	  })(__webpack_require__(11));
 
 	  return YConnectProfileProvider;
 
-	})(__webpack_require__(9));
+	})(__webpack_require__(12));
 
 	module.exports = YConnectProfileProvider;
 
@@ -1577,93 +1577,75 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 /* 8 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
-	var Profile;
-
-	Profile = (function() {
-	  var ATTRIBUTE_NAMES, attrName, i, len;
-
-	  ATTRIBUTE_NAMES = ['givenName', 'familyName', 'email'];
-
-	  function Profile(attributs) {
-	    this.attributs = attributs != null ? attributs : {};
-	  }
-
-	  Profile.prototype.fullName = function() {
-	    return (familyName()) + " " + (givenName());
-	  };
-
-	  for (i = 0, len = ATTRIBUTE_NAMES.length; i < len; i++) {
-	    attrName = ATTRIBUTE_NAMES[i];
-	    Profile.prototype.attrName = (function() {
-	      return this.attributes[attrName];
-	    });
-	  }
-
-	  return Profile;
-
-	})();
-
-	module.exports = Profile;
+	var map = {
+		"./callback": 9,
+		"./callback.coffee": 9,
+		"./google": 10,
+		"./google.coffee": 10,
+		"./profile": 11,
+		"./profile.coffee": 11,
+		"./provider": 12,
+		"./provider.coffee": 12,
+		"./sym-prof-loader": 1,
+		"./sym-prof-loader.coffee": 1,
+		"./yconnect": 2,
+		"./yconnect.coffee": 2
+	};
+	function webpackContext(req) {
+		return __webpack_require__(webpackContextResolve(req));
+	};
+	function webpackContextResolve(req) {
+		return map[req] || (function() { throw new Error("Cannot find module '" + req + "'.") }());
+	};
+	webpackContext.keys = function webpackContextKeys() {
+		return Object.keys(map);
+	};
+	webpackContext.resolve = webpackContextResolve;
+	module.exports = webpackContext;
+	webpackContext.id = 8;
 
 
 /***/ },
 /* 9 */
 /***/ function(module, exports) {
 
-	var ProfileProvider,
-	  bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
+	var data, hash, i, key, keyValue, len, origin, pairs, ref, targetLocation, targetWindow, value;
 
-	ProfileProvider = (function() {
-	  function ProfileProvider(config) {
-	    this.config = config;
-	    this.profileLoaded = bind(this.profileLoaded, this);
-	  }
+	hash = location.hash.substr(1);
 
-	  ProfileProvider.prototype.initButton = function(option) {
-	    var elem, i, len, ref, results;
-	    ref = document.querySelectorAll(option);
-	    results = [];
-	    for (i = 0, len = ref.length; i < len; i++) {
-	      elem = ref[i];
-	      elem.className.replace(/(?:^| ) *prof-button-loading *(?: |$)/, 'none');
-	      if (elem.className) {
-	        elem.className += ' ';
-	      }
-	      elem.className += 'prof-button-initialized';
-	      results.push(elem.addEventListener('click', this.onButtonClick, false));
-	    }
-	    return results;
-	  };
+	if (!hash) {
+	  window.close();
+	}
 
-	  ProfileProvider.prototype.profileLoaded = function(profile) {
-	    var event;
-	    this.profile = profile;
-	    event = document.createEvent('Event');
-	    event.initEvent('profileLoaded', true, false);
-	    event.profile = this.profile;
-	    event.profileProvider = this;
-	    return document.dispatchEvent(event);
-	  };
+	targetWindow = window.opener;
 
-	  ProfileProvider.prototype.scopes = function() {
-	    return ['openid', 'profile', 'email'];
-	  };
+	if (!targetWindow) {
+	  window.close();
+	}
 
-	  ProfileProvider.prototype.loadScript = function(url) {
-	    var fs, script;
-	    fs = document.getElementsByTagName('script')[0];
-	    script = document.createElement('script');
-	    script.setAttribute('src', url);
-	    return fs.parentNode.insertBefore(script, fs);
-	  };
+	targetLocation = targetWindow.location;
 
-	  return ProfileProvider;
+	origin = targetLocation.href.match(/^https?:\/\/[^\/?#]+/)[0];
 
-	})();
+	if (!origin) {
+	  window.close();
+	}
 
-	module.exports = ProfileProvider;
+	pairs = hash.split('&');
+
+	data = {};
+
+	for (i = 0, len = pairs.length; i < len; i++) {
+	  keyValue = pairs[i];
+	  ref = keyValue.split('=', 2), key = ref[0], value = ref[1];
+	  data[key] = value;
+	}
+
+	targetWindow.postMessage(data, origin);
+
+	window.close();
 
 
 /***/ },
@@ -1771,13 +1753,104 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	    return BasicProfile;
 
-	  })(__webpack_require__(8));
+	  })(__webpack_require__(11));
 
 	  return GoogleProfileProvider;
 
-	})(__webpack_require__(9));
+	})(__webpack_require__(12));
 
 	module.exports = GoogleProfileProvider;
+
+
+/***/ },
+/* 11 */
+/***/ function(module, exports) {
+
+	var Profile;
+
+	Profile = (function() {
+	  var ATTRIBUTE_NAMES, attrName, i, len;
+
+	  ATTRIBUTE_NAMES = ['givenName', 'familyName', 'email'];
+
+	  function Profile(attributs) {
+	    this.attributs = attributs != null ? attributs : {};
+	  }
+
+	  Profile.prototype.fullName = function() {
+	    return (familyName()) + " " + (givenName());
+	  };
+
+	  for (i = 0, len = ATTRIBUTE_NAMES.length; i < len; i++) {
+	    attrName = ATTRIBUTE_NAMES[i];
+	    Profile.prototype.attrName = (function() {
+	      return this.attributes[attrName];
+	    });
+	  }
+
+	  return Profile;
+
+	})();
+
+	module.exports = Profile;
+
+
+/***/ },
+/* 12 */
+/***/ function(module, exports) {
+
+	var ProfileProvider,
+	  bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
+
+	ProfileProvider = (function() {
+	  function ProfileProvider(config) {
+	    this.config = config;
+	    this.profileLoaded = bind(this.profileLoaded, this);
+	  }
+
+	  ProfileProvider.prototype.initButton = function(option) {
+	    var elem, i, len, ref, results;
+	    ref = document.querySelectorAll(option);
+	    results = [];
+	    for (i = 0, len = ref.length; i < len; i++) {
+	      elem = ref[i];
+	      elem.className.replace(/(?:^| ) *prof-button-loading *(?: |$)/, 'none');
+	      if (elem.className) {
+	        elem.className += ' ';
+	      }
+	      elem.className += 'prof-button-initialized';
+	      results.push(elem.addEventListener('click', this.onButtonClick, false));
+	    }
+	    return results;
+	  };
+
+	  ProfileProvider.prototype.profileLoaded = function(profile) {
+	    var event;
+	    this.profile = profile;
+	    event = document.createEvent('Event');
+	    event.initEvent('profileLoaded', true, false);
+	    event.profile = this.profile;
+	    event.profileProvider = this;
+	    return document.dispatchEvent(event);
+	  };
+
+	  ProfileProvider.prototype.scopes = function() {
+	    return ['openid', 'profile', 'email'];
+	  };
+
+	  ProfileProvider.prototype.loadScript = function(url) {
+	    var fs, script;
+	    fs = document.getElementsByTagName('script')[0];
+	    script = document.createElement('script');
+	    script.setAttribute('src', url);
+	    return fs.parentNode.insertBefore(script, fs);
+	  };
+
+	  return ProfileProvider;
+
+	})();
+
+	module.exports = ProfileProvider;
 
 
 /***/ }

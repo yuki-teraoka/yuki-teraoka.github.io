@@ -1849,16 +1849,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	  };
 
 	  FacebookProfileProvider.prototype.loadSdk = function() {
-	    console.log('INIT FB!!!');
 	    return this.sdk = new Promise((function(_this) {
 	      return function(resolve, reject) {
 	        console.log('Loading FacebookSDK ...');
 	        if (window.fbAsyncInit) {
-	          _this.onSdkLoad;
+	          _this.onSdkLoad();
 	          return resolve(_this);
 	        } else {
 	          window.fbAsyncInit = function() {
-	            _this.onSdkLoad;
+	            _this.onSdkLoad();
 	            return resolve(_this);
 	          };
 	          return _this.loadScript("" + LIBRARY_URL);

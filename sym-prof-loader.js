@@ -1825,7 +1825,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  };
 
 	  FacebookProfileProvider.prototype.scopes = function() {
-	    return ['profile', 'email'];
+	    return ['public_profile', 'email'];
 	  };
 
 	  FacebookProfileProvider.prototype.onButtonClick = function(event) {

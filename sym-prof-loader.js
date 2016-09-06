@@ -1857,16 +1857,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	          fields: 'last_name,first_name,email'
 	        }, function(response) {
 	          var profile;
-	          console.log(response);
-	          profile = new FacebookProfile();
+	          profile = new FacebookProfile({
+	            given_name: response.first_name,
+	            family_name: response.last_name,
+	            email: response.email
+	          });
 	          return resolve(profile);
 	        });
 	      };
 	    })(this));
-	  };
-
-	  FacebookProfileProvider.prototype.createProfile = function() {
-	    return new FacebookProfile();
 	  };
 
 	  FacebookProfileProvider.prototype.loadSdk = function() {

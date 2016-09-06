@@ -1824,6 +1824,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	    return this;
 	  };
 
+	  FacebookProfileProvider.prototype.scopes = function() {
+	    return ['profile', 'email'];
+	  };
+
 	  FacebookProfileProvider.prototype.onButtonClick = function(event) {
 	    console.log(event);
 	    return FB.login(function(response) {

@@ -1848,20 +1848,20 @@ return /******/ (function(modules) { // webpackBootstrap
 	  };
 
 	  FacebookProfileProvider.prototype.loadSdk = function() {
-	    return this.sdk = new Promise(function(resolve, reject) {
-	      if (window.fbAsyncInit) {
-	        this.onSdkLoad;
-	        return resolve(this);
-	      } else {
-	        window.fbAsyncInit = (function(_this) {
-	          return function() {
+	    return this.sdk = new Promise((function(_this) {
+	      return function(resolve, reject) {
+	        if (window.fbAsyncInit) {
+	          _this.onSdkLoad;
+	          return resolve(_this);
+	        } else {
+	          window.fbAsyncInit = function() {
 	            _this.onSdkLoad;
 	            return resolve(_this);
 	          };
-	        })(this);
-	        return this.loadScript("" + LIBRARY_URL);
-	      }
-	    });
+	          return _this.loadScript("" + LIBRARY_URL);
+	        }
+	      };
+	    })(this));
 	  };
 
 	  FacebookProfileProvider.prototype.onSdkLoad = function() {

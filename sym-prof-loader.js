@@ -196,6 +196,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	          return __webpack_require__(2);
 	        case 'google':
 	          return __webpack_require__(10);
+	        case 'facebook':
+	          return __webpack_require__(11);
 	        default:
 	          return console.log("Unsupported Provider '" + providerName + "'");
 	      }
@@ -1787,6 +1789,132 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	module.exports = GoogleProfileProvider;
 
+
+/***/ },
+/* 11 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(Promise) {var FacebookProfileProvider,
+	  bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
+	  extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+	  hasProp = {}.hasOwnProperty;
+
+	FacebookProfileProvider = (function(superClass) {
+	  var BasicProfile, LIBRARY_URL;
+
+	  extend(FacebookProfileProvider, superClass);
+
+	  LIBRARY_URL = 'https://connect.facebook.net/ja_JP/sdk.js';
+
+	  FacebookProfileProvider.load = function(config) {
+	    return new FacebookProfileProvider(config).initialize();
+	  };
+
+	  function FacebookProfileProvider(config1) {
+	    this.config = config1;
+	    this.initAuth = bind(this.initAuth, this);
+	    this.onSdkLoad = bind(this.onSdkLoad, this);
+	    this.loadSdk = bind(this.loadSdk, this);
+	    this.updateSigninStatus = bind(this.updateSigninStatus, this);
+	    this.onButtonClick = bind(this.onButtonClick, this);
+	  }
+
+	  FacebookProfileProvider.prototype.initialize = function() {
+	    this.loadSdk();
+	    return this;
+	  };
+
+	  FacebookProfileProvider.prototype.onButtonClick = function() {
+	    return FB.login(function(response) {
+	      if (response.authResponse) {
+	        return this.updateSigninStatus(response.authResponse);
+	      }
+	    }, {
+	      scope: this.scopes().join(','),
+	      enable_profile_selector: true
+	    });
+	  };
+
+	  FacebookProfileProvider.prototype.updateSigninStatus = function(isSignedIn) {
+	    if (isSignedIn) {
+	      return this.profileLoaded(this.createProfile());
+	    }
+	  };
+
+	  FacebookProfileProvider.prototype.createProfile = function() {
+	    var authInstance;
+	    authInstance = this.gapi.auth2.getAuthInstance();
+	    return new BasicProfile(authInstance.currentUser.get().getBasicProfile());
+	  };
+
+	  FacebookProfileProvider.prototype.loadSdk = function() {
+	    return this.sdk = new Promise(function(resolve, reject) {
+	      if (window.fbAsyncInit) {
+	        this.onSdkLoad;
+	        return resolve(this);
+	      } else {
+	        window.fbAsyncInit = (function(_this) {
+	          return function() {
+	            _this.onSdkLoad;
+	            return resolve(_this);
+	          };
+	        })(this);
+	        return this.loadScript("" + LIBRARY_URL);
+	      }
+	    });
+	  };
+
+	  FacebookProfileProvider.prototype.onSdkLoad = function() {
+	    return FB.init({
+	      appId: this.config.appId,
+	      cookie: true,
+	      xfbml: false,
+	      version: 'v2.7'
+	    });
+	  };
+
+	  FacebookProfileProvider.prototype.initAuth = function() {
+	    this.gapi.client.setApiKey(this.config.apiKey);
+	    return this.gapi.auth2.init({
+	      client_id: this.config.clientId,
+	      scope: this.scopes().join(' ')
+	    }).then((function(_this) {
+	      return function() {
+	        return _this.initButton(_this.config.button);
+	      };
+	    })(this));
+	  };
+
+	  BasicProfile = (function(superClass1) {
+	    extend(BasicProfile, superClass1);
+
+	    function BasicProfile(basicProfile) {
+	      this.basicProfile = basicProfile;
+	    }
+
+	    BasicProfile.prototype.givenName = function() {
+	      return this.basicProfile.getGivenName();
+	    };
+
+	    BasicProfile.prototype.familyName = function() {
+	      return this.basicProfile.getFamilyName();
+	    };
+
+	    BasicProfile.prototype.email = function() {
+	      return this.basicProfile.getEmail();
+	    };
+
+	    return BasicProfile;
+
+	  })(__webpack_require__(8));
+
+	  return FacebookProfileProvider;
+
+	})(__webpack_require__(9));
+
+	module.exports = GoogleProfileProvider;
+
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ }
 /******/ ])

@@ -20,9 +20,8 @@
     
     <button id="facebookAuth">Facebookから自動入力</button>
 
-    <button onclick="toOneClick()">ワンクリック化</button>
 
-    <form id="profileForm" target="_blank" action="https://st-f.msgs.jp/webapp/form/50377_pnwc_307/c_setParameters.do" method="post">
+    <form id="profileForm" action="https://st-f.msgs.jp/webapp/form/50377_pnwc_307/c_setParameters.do" method="post">
         <input type="text" value="" id="providerName" placeholder="プロバイダ名" name="singleAnswer(ANSWER521)" />
         <input type="text" value="" id="familyName" placeholder="品治"           name="singleAnswer(ANSWER522)" />
         <input type="text" value="" id="givenName"  placeholder="太郎"           name="singleAnswer(ANSWER523)" />
@@ -30,6 +29,10 @@
         <input type="submit" value="登録" />
     </form>
 
+    <div>
+    <button onclick="toOneClick()">ワンクリック化</button>
+    </div>
+    
     <script src="./sym-prof-loader.js"></script>
     <script type="text/javascript">
 function toOneClick() {

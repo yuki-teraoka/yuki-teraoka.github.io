@@ -1834,6 +1834,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    return FB.login((function(_this) {
 	      return function(response) {
 	        if (response.authResponse) {
+	          console.log(response.authResponse);
 	          return _this.updateSigninStatus(response.authResponse);
 	        }
 	      };

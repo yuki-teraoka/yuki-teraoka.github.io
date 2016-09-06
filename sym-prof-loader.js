@@ -1853,7 +1853,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	  FacebookProfileProvider.prototype.loadProfile = function() {
 	    return new Promise((function(_this) {
 	      return function(resolve, reject) {
-	        return FB.api('/me', function(response) {
+	        return FB.api('/me', {
+	          fields: 'last_name,first_name,email'
+	        }, function(response) {
 	          var profile;
 	          console.log(response);
 	          profile = new FacebookProfile();

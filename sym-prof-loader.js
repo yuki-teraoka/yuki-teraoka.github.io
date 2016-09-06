@@ -252,6 +252,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    this.validateToken = bind(this.validateToken, this);
 	    this.parseToken = bind(this.parseToken, this);
 	    this.onMessage = bind(this.onMessage, this);
+	    this.name = 'yconnect';
 	  }
 
 	  getJSON = function(url, requestHeaders) {
@@ -400,6 +401,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	    function YConnectProfile() {
 	      return YConnectProfile.__super__.constructor.apply(this, arguments);
 	    }
+
+	    YConnectProfile.prototype.providerName = function() {
+	      return 'yconnect';
+	    };
 
 	    return YConnectProfile;
 
@@ -1702,6 +1707,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    this.onClientLoad = bind(this.onClientLoad, this);
 	    this.updateSigninStatus = bind(this.updateSigninStatus, this);
 	    this.onButtonClick = bind(this.onButtonClick, this);
+	    this.name = 'google';
 	  }
 
 	  GoogleProfileProvider.prototype.initialize = function() {
@@ -1763,6 +1769,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	  BasicProfile = (function(superClass1) {
 	    extend(BasicProfile, superClass1);
 
+	    BasicProfile.prototype.providerName = function() {
+	      return 'google';
+	    };
+
 	    function BasicProfile(basicProfile) {
 	      this.basicProfile = basicProfile;
 	    }
@@ -1818,6 +1828,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    this.loadProfile = bind(this.loadProfile, this);
 	    this.updateSigninStatus = bind(this.updateSigninStatus, this);
 	    this.onButtonClick = bind(this.onButtonClick, this);
+	    this.name = 'facebook';
 	  }
 
 	  FacebookProfileProvider.prototype.initialize = function() {
@@ -1914,6 +1925,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	    function FacebookProfile() {
 	      return FacebookProfile.__super__.constructor.apply(this, arguments);
 	    }
+
+	    FacebookProfile.prototype.providerName = function() {
+	      return 'facebook';
+	    };
 
 	    return FacebookProfile;
 

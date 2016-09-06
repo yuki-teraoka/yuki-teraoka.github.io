@@ -1889,7 +1889,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  FacebookProfileProvider.prototype.onSdkLoad = function() {
 	    FB.init({
 	      appId: this.config.appId,
-	      cookie: true,
+	      cookie: false,
 	      xfbml: false,
 	      version: 'v2.7'
 	    });

@@ -1830,11 +1830,13 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	  FacebookProfileProvider.prototype.onButtonClick = function(event) {
 	    console.log(event);
-	    return FB.login(function(response) {
-	      if (response.authResponse) {
-	        return this.updateSigninStatus(response.authResponse);
-	      }
-	    }, {
+	    return FB.login((function(_this) {
+	      return function(response) {
+	        if (response.authResponse) {
+	          return _this.updateSigninStatus(response.authResponse);
+	        }
+	      };
+	    })(this), {
 	      scope: this.scopes().join(','),
 	      enable_profile_selector: true
 	    });

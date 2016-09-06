@@ -1866,12 +1866,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	  };
 
 	  FacebookProfileProvider.prototype.onSdkLoad = function() {
-	    return FB.init({
+	    FB.init({
 	      appId: this.config.appId,
 	      cookie: true,
 	      xfbml: false,
 	      version: 'v2.7'
 	    });
+	    return this.initButton(this.config.button);
 	  };
 
 	  FacebookProfileProvider.prototype.initAuth = function() {

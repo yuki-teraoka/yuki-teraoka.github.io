@@ -21,6 +21,7 @@
     <button id="facebookAuth">Facebookから自動入力</button>
 
         <form>
+            <input type="text" value="" id="providerName" placeholder="プロバイダ名" />
             <input type="text" value="" id="familyName" placeholder="品治" />
             <input type="text" value="" id="givenName"  placeholder="太郎" />
             <input type="email" value="" id="email" placeholder="test@example.com" />
@@ -30,6 +31,7 @@
     <script type="text/javascript">
             SymProfLoader.init({
               attributes: {
+                '#providerName': 'providerName',
                 '#email': 'email',
                 '#familyName': 'familyName',
                 '#givenName': 'givenName'

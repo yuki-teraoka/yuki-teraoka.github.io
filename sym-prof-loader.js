@@ -1849,6 +1849,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  };
 
 	  FacebookProfileProvider.prototype.loadSdk = function() {
+	    console.log('INIT FB!!!');
 	    return this.sdk = new Promise((function(_this) {
 	      return function(resolve, reject) {
 	        console.log('Loading FacebookSDK ...');

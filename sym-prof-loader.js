@@ -104,7 +104,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	    if (__DEBUG__) {
 	      console.log(event);
 	    }
-	    return this.assignAttributes(event.profile);
+	    this.assignAttributes(event.profile);
+	    event = document.createEvent('Event');
+	    event.initEvent('profileAssigned', true, false);
+	    event.profile = this.profile;
+	    event.profileProvider = this;
+	    return document.dispatchEvent(event);
 	  };
 
 	  SymProfLoader.prototype.assignAttributes = function(profile) {
@@ -1769,13 +1774,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	  BasicProfile = (function(superClass1) {
 	    extend(BasicProfile, superClass1);
 
-	    BasicProfile.prototype.providerName = function() {
-	      return 'google';
-	    };
-
 	    function BasicProfile(basicProfile) {
 	      this.basicProfile = basicProfile;
 	    }
+
+	    BasicProfile.prototype.providerName = function() {
+	      return 'google';
+	    };
 
 	    BasicProfile.prototype.givenName = function() {
 	      return this.basicProfile.getGivenName();

@@ -1824,7 +1824,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	    return this;
 	  };
 
-	  FacebookProfileProvider.prototype.onButtonClick = function() {
+	  FacebookProfileProvider.prototype.onButtonClick = function(event) {
+	    console.log(event);
 	    return FB.login(function(response) {
 	      if (response.authResponse) {
 	        return this.updateSigninStatus(response.authResponse);

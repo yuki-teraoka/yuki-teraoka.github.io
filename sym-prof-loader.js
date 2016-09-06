@@ -1851,6 +1851,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  FacebookProfileProvider.prototype.loadSdk = function() {
 	    return this.sdk = new Promise((function(_this) {
 	      return function(resolve, reject) {
+	        console.log('Loading FacebookSDK ...');
 	        if (window.fbAsyncInit) {
 	          _this.onSdkLoad;
 	          return resolve(_this);

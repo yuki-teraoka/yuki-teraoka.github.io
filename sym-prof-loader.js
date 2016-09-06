@@ -1912,7 +1912,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	})(__webpack_require__(9));
 
-	module.exports = GoogleProfileProvider;
+	module.exports = FacebookProfileProvider;
 
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 

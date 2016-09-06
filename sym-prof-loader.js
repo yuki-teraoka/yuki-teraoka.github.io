@@ -1800,7 +1800,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  hasProp = {}.hasOwnProperty;
 
 	FacebookProfileProvider = (function(superClass) {
-	  var BasicProfile, LIBRARY_URL;
+	  var FacebookProfile, LIBRARY_URL;
 
 	  extend(FacebookProfileProvider, superClass);
 
@@ -1815,6 +1815,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    this.initAuth = bind(this.initAuth, this);
 	    this.onSdkLoad = bind(this.onSdkLoad, this);
 	    this.loadSdk = bind(this.loadSdk, this);
+	    this.loadProfile = bind(this.loadProfile, this);
 	    this.updateSigninStatus = bind(this.updateSigninStatus, this);
 	    this.onButtonClick = bind(this.onButtonClick, this);
 	  }
@@ -1842,22 +1843,32 @@ return /******/ (function(modules) { // webpackBootstrap
 	    });
 	  };
 
-	  FacebookProfileProvider.prototype.updateSigninStatus = function(isSignedIn) {
-	    if (isSignedIn) {
-	      return this.profileLoaded(this.createProfile());
+	  FacebookProfileProvider.prototype.updateSigninStatus = function(authResponse) {
+	    if (authResponse) {
+	      return this.loadProfile().then(this.profileLoaded);
 	    }
 	  };
 
+	  FacebookProfileProvider.prototype.loadProfile = function() {
+	    return new Promise((function(_this) {
+	      return function(resolve, reject) {
+	        return FB.api('/me', function(response) {
+	          var profile;
+	          console.log(response);
+	          profile = new FacebookProfile();
+	          return resolve(profile);
+	        });
+	      };
+	    })(this));
+	  };
+
 	  FacebookProfileProvider.prototype.createProfile = function() {
-	    var authInstance;
-	    authInstance = this.gapi.auth2.getAuthInstance();
-	    return new BasicProfile(authInstance.currentUser.get().getBasicProfile());
+	    return new FacebookProfile();
 	  };
 
 	  FacebookProfileProvider.prototype.loadSdk = function() {
 	    return this.sdk = new Promise((function(_this) {
 	      return function(resolve, reject) {
-	        console.log('Loading FacebookSDK ...');
 	        if (window.fbAsyncInit) {
 	          _this.onSdkLoad();
 	          return resolve(_this);
@@ -1894,26 +1905,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	    })(this));
 	  };
 
-	  BasicProfile = (function(superClass1) {
-	    extend(BasicProfile, superClass1);
+	  FacebookProfile = (function(superClass1) {
+	    extend(FacebookProfile, superClass1);
 
-	    function BasicProfile(basicProfile) {
-	      this.basicProfile = basicProfile;
+	    function FacebookProfile() {
+	      return FacebookProfile.__super__.constructor.apply(this, arguments);
 	    }
 
-	    BasicProfile.prototype.givenName = function() {
-	      return this.basicProfile.getGivenName();
-	    };
-
-	    BasicProfile.prototype.familyName = function() {
-	      return this.basicProfile.getFamilyName();
-	    };
-
-	    BasicProfile.prototype.email = function() {
-	      return this.basicProfile.getEmail();
-	    };
-
-	    return BasicProfile;
+	    return FacebookProfile;
 
 	  })(__webpack_require__(8));
 

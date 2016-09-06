@@ -1854,7 +1854,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	    return new Promise((function(_this) {
 	      return function(resolve, reject) {
 	        return FB.api('/me', {
-	          fields: 'last_name,first_name,email'
+	          fields: 'last_name,first_name,email',
+	          locale: 'ja_JP'
 	        }, function(response) {
 	          var profile;
 	          profile = new FacebookProfile({
